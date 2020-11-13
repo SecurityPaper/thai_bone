@@ -43,14 +43,12 @@ func main() {
 	tableName := []map[string]interface{}{}
 	db.Raw("show tables").Scan(&tableName)
 
-	// db.Debug().Table("user").Find(&data) //查找数据
-
 	for _, v := range tableName { //循环从数据库取出的表map
 		for _, s := range v { //循环表map得到键值对
 			sstring := s.(string) //转换数据库名称为字符串
 			fmt.Println("正在查询表：", sstring)
-			db.Debug().Table(sstring).Find(&data) //查找数据map
-			for _, dataFor := range data {        //循环返回数据map
+			db.Table(sstring).Limit(1).Find(&data) //查找数据map
+			for _, dataFor := range data {         //循环返回数据map
 				for dateListName, dataForOne := range dataFor { //循环单条数据
 					for rulerName, rulerFor := range ruler { //循环出整个规则列表
 						// fmt.Println("type:", reflect.TypeOf(dataForOne))
@@ -70,21 +68,19 @@ func main() {
 							dataForOneString = string(dataForOne.(int32))
 						case int64:
 							// fmt.Println("is int64 ", dataForOneType)
-
 							dataForOneString = string(dataForOne.(int64))
 						}
-
 						// fmt.Println(rulerName, rulerFor.(string), dataForOneString, dateListName)
 						matchDigit, _ := regexp.MatchString(rulerFor.(string), dataForOneString)
-						if matchDigit == true {
-							fmt.Println(matchDigit)
-							fmt.Println(rulerName, sstring, dateListName)
+						// fmt.Println(matchDigit, dataForOneString, rulerFor.(string))
+						if matchDigit {
+							// fmt.Println(matchDigit)
+							fmt.Println("敏感信息:", rulerName, "  表名称:", sstring, "   字段名称:", dateListName)
 						}
 					}
 					// fmt.Printf("%+v\n", dataForOne)
 				}
 			}
-
 		}
 	}
 }
