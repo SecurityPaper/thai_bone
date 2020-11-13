@@ -6,8 +6,14 @@
 
 ## 安装
 
-下载release对应系统的二进制包
+下载[release](https://github.com/SecurityPaper/thai_bone/releases)对应系统的二进制包
 
-修改config-example.yaml为config.yaml
+解压缩
 
-直接运行即可
+```tar zxfv xxx.tar.gz```
+
+```wget -O config.yaml  https://raw.githubusercontent.com/SecurityPaper/thai_bone/v1.1/config-example.yaml```
+
+```nano config.yaml``` 修改数据库链接地址和账号密码
+
+```./thai_bone```直接运行即可
