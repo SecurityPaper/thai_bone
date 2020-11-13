@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 	"unicode"
 
@@ -62,7 +63,7 @@ func main() {
 							dataForOneString = dataForOne.(string)
 						case float64:
 							// fmt.Println("is float64 ", dataForOneType)
-							dataForOneString = dataForOne.(string)
+							dataForOneString = strconv.FormatFloat(dataForOne.(float64), 'f', -1, 64)
 						case int32:
 							// fmt.Println("is int32 ", dataForOneType)
 							dataForOneString = string(dataForOne.(int32))
@@ -75,7 +76,7 @@ func main() {
 						// fmt.Println(matchDigit, dataForOneString, rulerFor.(string))
 						if matchDigit {
 							// fmt.Println(matchDigit)
-							fmt.Println("敏感信息:", rulerName, "  表名称:", sstring, "   字段名称:", dateListName)
+							fmt.Println("敏感信息:", rulerName, "  表名称:", sstring, "   字段名称:", dateListName, "  数据样例:", dataForOne)
 						}
 					}
 					// fmt.Printf("%+v\n", dataForOne)
