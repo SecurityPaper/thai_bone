@@ -82,6 +82,7 @@ func main() {
 					// fmt.Printf("%+v\n", dataForOne)
 				}
 			}
+			data = nil
 		}
 	}
 }
